@@ -186,7 +186,7 @@ router.get('/health', async (req, res) => {
       status: 'unhealthy',
       service: 'sentiment-analysis',
       gemini_api: 'disconnected',
-      error: error.message,
+      error: error instanceof Error ? error.message : 'Unknown error',
       timestamp: new Date().toISOString()
     });
   }

@@ -9,8 +9,6 @@ interface AuthContextType {
   signIn: (email: string, password: string) => Promise<any>;
   signUp: (email: string, password: string, userData?: any) => Promise<any>;
   signInWithGoogle: () => Promise<any>;
-  signInWithPhone: (phone: string) => Promise<any>;
-  verifyOtp: (phone: string, token: string) => Promise<any>;
   signOut: () => Promise<any>;
 }
 
@@ -48,8 +46,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     signIn: authHelpers.signIn,
     signUp: authHelpers.signUp,
     signInWithGoogle: authHelpers.signInWithGoogle,
-    signInWithPhone: authHelpers.signInWithPhone,
-    verifyOtp: authHelpers.verifyOtp,
     signOut: authHelpers.signOut,
   };
 

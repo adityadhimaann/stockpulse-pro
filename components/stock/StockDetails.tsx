@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { RefreshCw, TrendingUp, TrendingDown, DollarSign, Users, BarChart3 } from 'lucide-react';
-import { StockChart } from './StockChart';
-import { NewsWidget } from './NewsWidget';
-import { StockMetrics } from './StockMetrics';
+import { StockChart } from '../StockChart';
+import { NewsWidget } from '../NewsWidget';
+// import { StockMetrics } from '../StockMetrics';
 
 interface StockData {
   quote: {
@@ -286,23 +286,15 @@ export function StockDetails({ symbol, isDarkMode = false }: StockDetailsProps) 
           <div className="lg:col-span-2">
             <StockChart 
               symbol={symbol}
-              data={stockData.chartData}
+              height={400}
               isDarkMode={isDarkMode}
             />
           </div>
 
           {/* Right Sidebar */}
           <div className="space-y-6">
-            {/* Stock Metrics */}
-            <StockMetrics 
-              quote={quote}
-              overview={overview}
-              isDarkMode={isDarkMode}
-            />
-
             {/* News Widget */}
             <NewsWidget 
-              symbol={symbol}
               isDarkMode={isDarkMode}
             />
           </div>
