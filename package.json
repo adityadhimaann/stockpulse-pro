@@ -4,14 +4,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --mode production",
     "build:check": "tsc && vite build",
     "preview": "vite preview",
     "api:dev": "npx tsx api/server.ts",
     "api:build": "tsc --project tsconfig.api.json",
     "start": "node dist/api/server.js",
     "test:api": "curl http://localhost:3001/api/health",
-    "vercel-build": "npm run build"
+    "vercel-build": "vite build --mode production"
   },
   "description": "",
   "main": "index.js",
