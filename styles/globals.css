@@ -1,0 +1,352 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-size: 14px;
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #030213;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #1d4ed8;
+  --radius: 0.5rem;
+  
+  /* Dark theme colors */
+  --dark-background: #000000;
+  --dark-foreground: #ffffff;
+  --dark-card: #1a1a1a;
+  --dark-card-foreground: #ffffff;
+  --dark-muted: #2a2a2a;
+  --dark-muted-foreground: #888888;
+  
+  /* StockPulse Pro Custom Colors */
+  --electric-green: #00ff88;
+  --electric-green-glow: rgba(0, 255, 136, 0.3);
+  --gold: #ffd700;
+  --gold-glow: rgba(255, 215, 0, 0.3);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.2);
+}
+
+/* Light theme */
+.light {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(0, 0, 0, 0.1);
+  
+  /* Light mode specific backgrounds */
+  --app-bg: linear-gradient(to bottom right, #f8fafc, #e2e8f0, #cbd5e1);
+  --sidebar-bg: linear-gradient(to bottom, #ffffff, #f8fafc, #f1f5f9);
+  --header-bg: rgba(255, 255, 255, 0.95);
+  --ticker-bg: rgba(248, 250, 252, 0.95);
+}
+
+/* Dark theme */
+.dark {
+  --background: var(--dark-background);
+  --foreground: var(--dark-foreground);
+  --card: var(--dark-card);
+  --card-foreground: var(--dark-card-foreground);
+  --muted: var(--dark-muted);
+  --muted-foreground: var(--dark-muted-foreground);
+  --glass-bg: rgba(26, 26, 46, 0.3);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  
+  /* Dark mode specific backgrounds */
+  --app-bg: linear-gradient(to bottom right, #000000, #1f2937, #000000);
+  --sidebar-bg: linear-gradient(to bottom, #1f2937, #000000, #1f2937);
+  --header-bg: rgba(0, 0, 0, 0.9);
+  --ticker-bg: rgba(31, 41, 55, 0.9);
+}
+
+@layer base {
+  * {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+  
+  body {
+    @apply bg-black text-white antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Custom Glassmorphism utilities */
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+  }
+  
+  .glow-electric {
+    box-shadow: 0 0 20px var(--electric-green-glow);
+  }
+  
+  .glow-gold {
+    box-shadow: 0 0 20px var(--gold-glow);
+  }
+  
+  .text-electric-green {
+    color: var(--electric-green);
+  }
+  
+  .text-gold {
+    color: var(--gold);
+  }
+  
+  .bg-electric-green {
+    background-color: var(--electric-green);
+  }
+  
+  .bg-gold {
+    background-color: var(--gold);
+  }
+  
+  .border-electric-green {
+    border-color: var(--electric-green);
+  }
+  
+  .border-gold {
+    border-color: var(--gold);
+  }
+  
+  /* Market Data Styles */
+  .market-up {
+    color: var(--electric-green);
+  }
+  
+  .market-down {
+    color: #ff4444;
+  }
+  
+  .chart-container {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+  }
+
+  /* Custom Scrollbar Styles */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #4a5568 #2d3748;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #2d3748;
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #4a5568;
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #00ff88;
+  }
+
+  /* Dark theme scrollbar */
+  .dark .scrollbar-thin {
+    scrollbar-color: #4a5568 #1a202c;
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-track {
+    background: #1a202c;
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #4a5568;
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #00ff88;
+  }
+  
+  /* Trading Platform specific styles */
+  .trading-card {
+    @apply rounded-xl p-6 transition-all duration-300 hover:shadow-lg;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+  }
+  
+  .neon-glow {
+    animation: neon-pulse 2s ease-in-out infinite alternate;
+  }
+  
+  @keyframes neon-pulse {
+    from {
+      text-shadow: 0 0 10px var(--electric-green), 0 0 20px var(--electric-green), 0 0 30px var(--electric-green);
+    }
+    to {
+      text-shadow: 0 0 5px var(--electric-green), 0 0 10px var(--electric-green), 0 0 15px var(--electric-green);
+    }
+  }
+  
+  /* Scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--electric-green);
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+  }
+}
+
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .backdrop-blur-glass {
+    backdrop-filter: blur(20px);
+  }
+  
+  /* Mobile optimizations */
+  .mobile-text {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  
+  .mobile-padding {
+    padding: 0.75rem;
+  }
+  
+  .mobile-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-text {
+      font-size: 1rem;
+      line-height: 1.5rem;
+    }
+    
+    .mobile-padding {
+      padding: 1.5rem;
+    }
+    
+    .mobile-grid {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+  }
+  
+  /* Touch-friendly buttons */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Mobile viewport fixes */
+  .mobile-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Prevent zoom on input focus */
+  input, select, textarea {
+    font-size: 16px;
+  }
+  
+  @media (max-width: 767px) {
+    input, select, textarea {
+      font-size: 16px;
+    }
+  }
+  
+  /* Mobile-optimized scrolling */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+  
+  /* Hide scrollbar on mobile */
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Mobile-specific spacing */
+  .mobile-spacing {
+    padding: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .mobile-spacing {
+      padding: 1.5rem;
+    }
+  }
+  
+  /* Responsive font sizes */
+  .responsive-text-xs { font-size: 0.625rem; }
+  .responsive-text-sm { font-size: 0.75rem; }
+  .responsive-text-base { font-size: 0.875rem; }
+  .responsive-text-lg { font-size: 1rem; }
+  .responsive-text-xl { font-size: 1.125rem; }
+  .responsive-text-2xl { font-size: 1.25rem; }
+  
+  @media (min-width: 768px) {
+    .responsive-text-xs { font-size: 0.75rem; }
+    .responsive-text-sm { font-size: 0.875rem; }
+    .responsive-text-base { font-size: 1rem; }
+    .responsive-text-lg { font-size: 1.125rem; }
+    .responsive-text-xl { font-size: 1.25rem; }
+    .responsive-text-2xl { font-size: 1.5rem; }
+  }
+  
+  /* Mobile-optimized animations */
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-animate {
+      transition: all 0.2s ease-out;
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-animate {
+      transition: none;
+    }
+  }
+}
