@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build --mode production",
-    "build:check": "tsc && vite build",
     "preview": "vite preview",
     "api:dev": "npx tsx api/server.ts",
     "api:build": "tsc --project tsconfig.api.json",
