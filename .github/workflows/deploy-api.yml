@@ -1,0 +1,50 @@
+name: Deploy API to Azure Container Apps
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'api/**'
+      - 'Dockerfile'
+      - '.github/workflows/deploy-api.yml'
+
+env:
+  REGISTRY: stockpulseregistry.azurecr.io
+  IMAGE_NAME: stockpulse-api
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Log in to Azure Container Registry
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.REGISTRY }}
+        username: ${{ secrets.REGISTRY_USERNAME }}
+        password: ${{ secrets.REGISTRY_PASSWORD }}
+
+    - name: Build and push Docker image
+      run: |
+        docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+        docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+    - name: Deploy to Azure Container Apps
+      uses: azure/container-apps-deploy-action@v1
+      with:
+        acrName: stockpulseregistry
+        containerAppName: stockpulse-api
+        resourceGroup: stockpulse-rg
+        imageToDeploy: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+        environmentVariables: |
+          ALPHA_VANTAGE_API_KEY=secretref:alpha-vantage-api-key
+          GEMINI_API_KEY=secretref:gemini-api-key
+          NODE_ENV=production
+          PORT=3001
+          ALLOWED_ORIGINS=https://stockpulse-pro.azurestaticapps.net
+          RATE_LIMIT_WINDOW_MS=900000
+          RATE_LIMIT_MAX_REQUESTS=100
+          CACHE_TTL=300000
